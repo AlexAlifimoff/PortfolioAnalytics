@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20150429230458) do
   create_table "portfolios", force: true do |t|
     t.string   "name"
     t.float    "initial_cash"
+    t.string   "benchmark"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
