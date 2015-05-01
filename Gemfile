@@ -41,3 +41,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin]
 gem 'quandl_client'
 gem 'descriptive_statistics', '~> 2.4.0', :require => 'descriptive_statistics/safe'
 gem 'statsample'
+
+gem 'execjs'
+
+gem 'bootstrap-sass', '~> 3.2.0'
+#gem 'autoprefixer-rails'

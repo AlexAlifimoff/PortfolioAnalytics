@@ -1,0 +1,41 @@
+<table class="table table-striped">
+    <tr>
+        <td>Total Value (Equity and Cash)</td>
+        <td>$<%= number_with_precision(@total_value, :delimiter => ',', :precision => 2) %></td>
+    </tr>
+    <tr>
+        <td>Total Cost</td>
+        <td>$<%= number_with_precision(@total_cost, :delimiter => ',', :precision => 2) %></td>
+    </tr>
+    <tr>
+        <td>Profit / Loss</td>
+        <td>$<%= number_with_precision(@total_value - @total_cost, :delimiter => ',', :precision => 2) %></td>
+    </tr>
+</table>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <td>Security Ticker</td>
+        <td>Total Value</td>
+        <td>Total Cost</td>
+        <td>Quantity</td>
+        <td>Price</td>
+        <td>Average Cost per Share</td>
+        <td>Profit / Loss</td>
+    </tr>
+    </thead>
+    <tbody>
+    <% @holdings.each do |ticker, holding| %>
+    <% if holding["Quantity"] < 1 then next end %>
+    <tr>
+        <td><%= ticker %></td>
+        <td>$<%= number_with_precision(holding["Price"] * holding["Quantity"], :delimiter => ',', :precision => 2) %></td>
+        <td>$<%= number_with_precision(holding["Total Cost"], :delimiter => ',', :precision => 2) %></td>
+        <td><%= number_with_precision(holding["Quantity"], :delimiter => ',', :precision => 2) %></td>
+        <td>$<%= number_with_precision(holding["Price"], :delimiter => ',', :precision => 2) %></td>
+        <td>$<%= number_with_precision(holding["Total Cost"] / holding["Quantity"], :delimiter => ',', :precision => 2) %></td>
+        <td>$<%= number_with_precision((holding["Price"] * holding["Quantity"]) - holding["Total Cost"], :delimiter => ',', :precision => 2) %></td>
+    </tr>
+    <% end %>
+    </tbody>
+</table>

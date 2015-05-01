@@ -1,0 +1,56 @@
+<table class="table table-striped">
+    <tbody>
+    <tr>
+        <td>Beta</td>
+        <td><%= number_with_precision(@beta,  :precision => 2) %></td>
+    </tr>
+    <tr>
+        <td>Volatility (Annual)</td>
+        <td><%= number_with_precision((@var ** (0.5)) * 100, :delimiter => ',', :precision => 3) %>%</td>
+    </tr>
+    <tr>
+        <td>Value at Risk</td>
+        <td>$<%= number_with_precision(@value_at_risk, :delimiter => ',', :precision => 3) %></td>
+    </tr>
+    <tr>
+        <td>Tracking Error</td>
+        <td><%= number_with_precision(@tracking_error * 100, :delimiter => ',', :precision => 3) %>%</td>
+    </tr>
+    </tbody>
+</table>
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+    google.load('visualization', '1.1', {packages: ['line']});
+    google.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('datetime', 'Date');
+      data.addColumn('number', 'Portfolio Value');
+      data.addColumn('number', 'Benchmark Value');
+
+      data.addRows([
+        <% adjust = @prices[0][0] / @benchmark_prices[0] %>
+        <% [@prices[1], @prices[0], @benchmark_prices].transpose.each do |date, port, benchmark| %>
+            [new Date(<%= date.year %>, <%= date.month %>, <%= date.day %>), <%= port %>, <%= adjust * benchmark %>],
+        <% end %>
+      ]);
+
+      var options = {
+        chart: {
+          title: 'Portfolio Value',
+          subtitle: 'in thousands of dollars (USD)'
+        },
+        width: 900,
+        height: 500
+      };
+
+      var chart = new google.charts.Line(document.getElementById('linechart_material'));
+
+      chart.draw(data, options);
+    }
+  </script>
+
+<div id="linechart_material"></div>

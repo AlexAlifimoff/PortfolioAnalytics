@@ -1,3 +1,5 @@
+require 'csv'
+
 class CreateTrades < ActiveRecord::Migration
   def change
     create_table :trades do |t|
@@ -10,25 +12,19 @@ class CreateTrades < ActiveRecord::Migration
       t.timestamps
     end
     
-    p = Portfolio.all.first
-    tr1 = Trade.new
-    tr1.execution_date = 1.year.ago
-    tr1.asset_ticker = "AAPL"
-    tr1.price = 12.2
-    tr1.quantity = 100.0
-    tr1.fees = 2.0
-    tr1.save
+    p = Portfolio.first
+    csv = CSV.open(Rails.root.join('data', 'Trades1.csv').to_s, :headers => true).to_a.map
+    csv.each do |entry|
+        tr = Trade.new
+        tr.execution_date = 1.year.ago
+        tr.price = entry["Price"].to_f
+        tr.quantity = entry["Quantity"].to_f
+        tr.fees = 2.0
+        tr.asset_ticker = entry["Ticker"]
+        tr.save
+        p.trades << tr
+    end
     
-    tr2 = Trade.new
-    tr2.execution_date = 1.year.ago
-    tr2.asset_ticker = "PMT"
-    tr2.price = 20.12
-    tr2.quantity = 50
-    tr2.fees = 2.0
-    tr2.save
-    
-    p.trades << tr1
-    p.trades << tr2
     p.save
   end
 end

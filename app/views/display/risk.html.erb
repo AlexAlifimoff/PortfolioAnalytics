@@ -1,0 +1,24 @@
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Date', 'Return'],
+      <% @returns.zip(@dates).each do |ret, date| %>
+        ['<%= date.to_date %>', <%= ret.round(4) %>],
+      <% end %>
+      ]);
+
+    var options = {
+      title: 'Histogram of Daily Returns',
+      legend: { position: 'none' },
+    };
+
+    var chart = new google.visualization.Histogram(document.getElementById('chart_div'));
+    chart.draw(data, options);
+  }
+</script>
+
+<div id="chart_div" style="width: 900px; height: 500px;"></div>

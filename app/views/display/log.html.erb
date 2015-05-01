@@ -1,0 +1,22 @@
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <td>Execution Date</td>
+        <td>Security Purchased</td>
+        <td>Price</td>
+        <td>Quantity</td>
+        <td>Fees Paid</td>
+    </tr>
+    </thead>
+    <tbody>
+    <% @trades.each do |trade| %>
+    <tr>
+        <td><%= trade.execution_date %></td>
+        <td><%= trade.asset_ticker %></td>
+        <td><%= trade.price %></td>
+        <td><%= trade.quantity %></td>
+        <td><%= trade.fees %></td>
+    </tr>
+    <% end %>
+    </tbody>
+</table>

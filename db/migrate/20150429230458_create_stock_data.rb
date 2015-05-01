@@ -17,5 +17,9 @@ class CreateStockData < ActiveRecord::Migration
       t.float       :adj_volume
       t.timestamps
     end
+    s = Stock.new
+    s.ticker = "IWM"
+    s.load_data
+    s.save
   end
 end
