@@ -1,0 +1,30 @@
+<%= render partial: "errors" %>
+<%= form_for @user do |f| %>
+  <div class="field_container">
+    <%= f.label("First name:") %>
+    <%= f.text_field :first_name %>
+    <br />
+  </div>
+  <div class="field_container">
+    <%= f.label("Last name:") %>
+    <%= f.text_field :last_name %>
+    <br />
+  </div>
+  <div class="field_container">
+    <%= f.label("Login:") %>
+    <%= f.text_field :login %>
+    <br />
+  </div>
+  <div class="field_container">
+    <%= f.label("Enter a password:") %>
+    <%= f.password_field :password %>
+    <br />
+  </div>
+  <div class="field_container">
+    <%= f.label("Confirm password:") %>
+    <%= f.password_field :password_confirmation %>
+    <br />
+  </div>
+  <br />
+  <%= f.submit "Create User" %>
+<% end %>

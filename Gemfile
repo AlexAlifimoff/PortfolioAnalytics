@@ -42,7 +42,8 @@ gem 'quandl_client'
 gem 'descriptive_statistics', '~> 2.4.0', :require => 'descriptive_statistics/safe'
 gem 'statsample'
 
-gem 'execjs'
+#gem 'execjs'
 
 gem 'bootstrap-sass', '~> 3.2.0'
 #gem 'autoprefixer-rails'
+gem 'activerecord-session_store'
