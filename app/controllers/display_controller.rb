@@ -42,7 +42,8 @@ class DisplayController < ApplicationController
             "Financials" => 10.0,
             "Information Technology" => 10.0,
             "Telecommunication Services" => 20.0,
-            "Utilities" => 15.0
+            "Utilities" => 5.0,
+            "Industrials" => 10.0
                             }
         @threshold = 5.0
         @unbalanced_sectors = []
