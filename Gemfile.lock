@@ -76,7 +76,7 @@ GEM
     minitest (5.6.1)
     multi_json (1.11.0)
     multipart-post (2.0.0)
-    pg (0.17.1-x86-mingw32)
+    pg (0.18.1-x86-mingw32)
     prawn (0.8.4)
       prawn-core (>= 0.8.4, < 0.9)
       prawn-layout (>= 0.8.4, < 0.9)

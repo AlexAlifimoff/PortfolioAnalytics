@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150501202614) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "portfolios", force: true do |t|
     t.string   "name"
     t.float    "initial_cash"
@@ -28,8 +31,8 @@ ActiveRecord::Schema.define(version: 20150501202614) do
     t.datetime "updated_at"
   end
 
-  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true
-  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at"
+  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
+  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
   create_table "stock_data", force: true do |t|
     t.date     "date"
@@ -50,7 +53,7 @@ ActiveRecord::Schema.define(version: 20150501202614) do
     t.datetime "updated_at"
   end
 
-  add_index "stock_data", ["stock_id"], name: "index_stock_data_on_stock_id"
+  add_index "stock_data", ["stock_id"], name: "index_stock_data_on_stock_id", using: :btree
 
   create_table "stocks", force: true do |t|
     t.string   "ticker"
@@ -71,7 +74,7 @@ ActiveRecord::Schema.define(version: 20150501202614) do
     t.string   "industry_group"
   end
 
-  add_index "trades", ["portfolio_id"], name: "index_trades_on_portfolio_id"
+  add_index "trades", ["portfolio_id"], name: "index_trades_on_portfolio_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "first_name"
