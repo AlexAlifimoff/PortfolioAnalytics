@@ -12,19 +12,23 @@ class CreateTrades < ActiveRecord::Migration
       t.timestamps
     end
     
-    p = Portfolio.first
-    csv = CSV.open(Rails.root.join('data', 'Trades1.csv').to_s, :headers => true).to_a.map
-    csv.each do |entry|
-        tr = Trade.new
-        tr.execution_date = 1.year.ago
-        tr.price = entry["Price"].to_f
-        tr.quantity = entry["Quantity"].to_f
-        tr.fees = 2.0
-        tr.asset_ticker = entry["Ticker"]
-        tr.save
-        p.trades << tr
-    end
+    #p = Portfolio.first
+    #seeddata = ["seedtrades1.csv", "seedtrades2.csv"]
+    #seeddate.each do |file|
+    #    csv = CSV.open(Rails.root.join('data', file).to_s, :headers => true).to_a.map
+    #    csv.each do |entry|
+    #        tr = Trade.new
+    #        tr.execution_date = 1.year.ago
+    #        tr.price = entry["Price"].to_f
+    #        tr.quantity = entry["Quantity"].to_f
+    #        tr.fees = 2.0
+    #        if(entry["Ticker"] == "MOG.A") then entry["Ticker"] = "MOG_A" end
+    #        tr.asset_ticker = entry["Ticker"]
+    #        tr.save
+    #        p.trades << tr
+    #    end
+    #end
     
-    p.save
+    #p.save
   end
 end
