@@ -26,19 +26,24 @@
         <li <%= if controller.action_name == "holdings" then 'class=active' else '' end %>><a href="/display/holdings">Holdings</a></li>
         <li <%= if controller.action_name == "risk" then 'class=active' else '' end %>><a href="/display/risk">Risk Metrics</a></li>
         <li <%= if controller.action_name == "log" then 'class=active' else '' end %>><a href="/display/log">Transaction Log</a></li>
+        <li <%= if controller.action_name == "compliance" then 'class=active' else '' end %>><a href="/display/compliance">Compliance</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Link</a></li>
+        <% if session[:current_user_id].nil? %>
+        <li><a href="/user/login">Login</a></li>
+        <li><a href="/user/register">Register</a></li>
+        <% else %>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hello <%= session[:user_first_name] %> | Manage<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
+            <li><a href="/user/register">Register New User</a></li>
+            <li><a href="/user/logout">Logout</a></li>
             <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
+            <li><a href="/manage/add_transaction">Add Transaction</a></li>
+            <li><a href="#">Delete Transaction</a></li>
           </ul>
         </li>
+        <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

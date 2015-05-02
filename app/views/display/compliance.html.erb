@@ -1,0 +1,69 @@
+<div class="panel panel-default compliance-main-panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">Fund Compliance</h3>
+    </div>
+    <div class="panel-body">
+    This page displays the compliant status of the Cardinal Fund relative to the fund's mandate. Please select a mandate to evaluate its compliant status and learn more.
+    </div>
+    <ul class="list-group">
+      <li id="compliance-sectors-button" class="list-group-item <%= @unbalanced_sectors.empty? ? '' : 'list-group-item-danger' %>">Sector Weights <%= @unbalanced_sectors.empty? ? 'Balanced' : 'Unbalanced' %></li>
+      <li id="compliance-stocks-button" class="list-group-item <%= @unbalanced_stocks.empty? ? '' : 'list-group-item-danger' %>">Individual Holdings <%= @unbalanced_stocks.empty? ? 'Balanced' : 'Unbalanced' %></li>
+      <li id="compliance-beta-button" class="list-group-item <%= @beta_constrained ? '' : 'list-group-item-danger' %>">Beta <%= @beta_constrained ? 'Constrained' : 'Unconstrained' %></li>
+    </ul>
+</div>
+
+<div class="panel panel-default compliance-metric-panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">Compliance Metric Information</h3>
+    </div>
+    <div class="panel-body" id="compliance-metric-display">
+        Select a metric to learn more.
+    </div>
+</div>
+
+<div id="sectors-compliance-div">
+    <table class="table">
+        <tr>
+            <td>Sector Name</td>
+            <td>% of Portfolio</td>
+            <td>% of Benchmark</td>
+        </tr>
+        <% @vals_by_sector.each do |sector, val| %>
+        <tr>
+            <td><%= sector %></td>
+            <td><%= number_with_precision(100*(val / @total_value), :precision => 2) %>%</td>
+            <td><%= @industry_weights[sector] %>%</td>
+        </tr>
+        <% end %>
+    </table>
+</div>
+
+<div id="stocks-compliance-div">
+<% if @unbalanced_stocks.empty? %>
+    All stocks are balanced.
+<% else %>
+    Unbalanced stocks: <% @unbalanced_stocks.each do |ticker| %><%= ticker %>,<% end %>
+<% end %>
+</div>
+
+<div id="beta-compliance-div">
+Current portfolio beta is <%= @beta.round(2) %>.
+</div>
+
+Unbalanced Sectors:
+<%= @unbalanced_sectors %>
+
+<script>
+    $("#compliance-sectors-button").click(function() {
+        var newhtml = $("#sectors-compliance-div").html();
+        $("#compliance-metric-display").html(newhtml);
+    });
+    $("#compliance-stocks-button").click(function() {
+        var newhtml = $("#stocks-compliance-div").html();
+        $("#compliance-metric-display").html(newhtml);
+    });
+    $("#compliance-beta-button").click(function() {
+        var newhtml = $("#beta-compliance-div").html();
+        $("#compliance-metric-display").html(newhtml);
+    });
+</script>

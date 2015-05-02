@@ -53,6 +53,32 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+  #Rails.application.routes.draw do
+  resources :users, only: [:new, :create, :index] do
+    collection do
+      get :login
+      post :post_login # Not sure if this is actually needed. Need to check.
+      get :logout
+    end
+  end
+
+  #resources :display, only: [] do
+  #  collection do
+  #    get :main
+  #    get :portfolio
+  #    get :risk
+  #    get :compliance
+  #  end
+  #end
+
+  #resources :manage, only: [] do
+  #  collection do
+  #    get :add_transaction
+  #  end
+  #end
+
+  # Upon loading the page, redirect to the portfolio action in the display controller
+  root 'display#home'
   get ':controller(/:action(/:id))'
   post ':controller(/:action(/:id))'
 end

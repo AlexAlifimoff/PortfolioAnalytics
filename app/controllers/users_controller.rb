@@ -30,6 +30,7 @@ class UsersController < ApplicationController
     user = User.find_by_login params[:login]
     if user && user.password_valid?(params[:password]) then
       session[:current_user_id] = user.id
+      session[:user_first_name] = user.first_name
       redirect_to url_for(controller: :display, action: :portfolio)
     else
       flash[:error] = "Username and/or password is incorrect."

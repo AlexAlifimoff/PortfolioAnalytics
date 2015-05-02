@@ -12,6 +12,7 @@ class Portfolio < ActiveRecord::Base
                 holdings[trade.asset_ticker]["Quantity"] += trade.quantity
                 holdings[trade.asset_ticker]["Total Cost"] += trade.price * trade.quantity
                 holdings[trade.asset_ticker]["Fees"] += trade.fees
+                
             else
                 holdings[trade.asset_ticker] = {}
                 holdings[trade.asset_ticker]["Quantity"] = trade.quantity
@@ -20,6 +21,22 @@ class Portfolio < ActiveRecord::Base
             end
         end
         return holdings
+    end
+    
+    def get_industry_group_values(date)
+        holdings = Rails.cache.fetch("holdings/#{self.name}/#{date.to_date}", expires_in: 12.hours) do self.get_holdings_on(date) end
+        igs = ["Energy", "Materials", "Consumer Discretionary", "Consumer Staples", "Health Care", "Financials", "Information Technology", "Telecommunication Services", "Utilities"]
+        ig_values = {}
+        holdings.each do |ticker, holding|
+            stock = Stock.where("ticker = ?", ticker).first
+            if(ticker == self.benchmark) then next end
+            if(ig_values.has_key? stock.industry_group)
+                ig_values[stock.industry_group] += stock.get_close_price_on(date.to_date) * holding["Quantity"]
+            else
+                ig_values[stock.industry_group] = stock.get_close_price_on(date.to_date) * holding["Quantity"]
+            end
+        end
+        return ig_values
     end
     
     def get_holdings_and_prices_on(date)

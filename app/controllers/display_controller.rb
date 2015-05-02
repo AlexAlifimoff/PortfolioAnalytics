@@ -2,7 +2,7 @@ class DisplayController < ApplicationController
     def home
         @active_tab = "home"
         st = 3.months.ago.to_date
-        et = 8.hours.ago.to_date
+        et = 12.hours.ago.to_date
         portfolio = Portfolio.first
         @beta = portfolio.beta(st, et)
         daily_var = portfolio.variance(st, et)
@@ -16,18 +16,58 @@ class DisplayController < ApplicationController
     def risk
         portfolio = Portfolio.first
         st = 3.months.ago.to_date
-        et = 8.hours.ago.to_date
+        et = 12.hours.ago.to_date
         @active_tab = "risk"
         r_arr = portfolio.get_returns(st, et)
         @returns = r_arr[0]
         @dates = r_arr[1]
+    end
+    def compliance
+        portfolio = Portfolio.first
+        st = 3.months.ago.to_date
+        et = 12.hours.ago.to_date
+        @vals_by_sector = portfolio.get_industry_group_values(et)
+        @total_value = 0
+        @vals_by_sector.each do |sector, val|
+            @total_value += val
+        end
+        @igs = ["Energy", "Materials", "Consumer Discretionary", "Consumer Staples", "Health Care", "Financials", "Information Technology", "Telecommunication Services", "Utilities"]
+        @industry_weights = {
+            "Energy" => 10.0,
+            "Materials" => 5.0,
+            "Consumer Discretionary" => 10.0,
+            "Consumer Staples" => 10.0,
+            "Health Care" => 10.0,
+            "Financials" => 10.0,
+            "Information Technology" => 10.0,
+            "Telecommunication Services" => 20.0,
+            "Utilities" => 15.0
+                            }
+        @threshold = 5.0
+        @unbalanced_sectors = []
+        @industry_weights.each do |sector, weight|
+            if((weight - @vals_by_sector[sector]/@total_value).abs > 5.0)
+                @unbalanced_sectors << sector
+            end
+        end
+        @holdings = portfolio.get_holdings_and_prices_on(et)
+        @unbalanced_stocks = []
+        @holdings.each do |ticker, holding|
+            if(ticker == portfolio.benchmark) then next end
+            if((holding["Quantity"] * holding["Price"]/@total_value) > 0.05)
+                @unbalanced_stocks << ticker
+            end
+        end
+        @beta = portfolio.beta(st, et)
+        @beta_constrained = ((@beta > 0.9) and (@beta < 1.1))
+        
     end
     def log
         portfolio = Portfolio.first
         @trades = portfolio.trades
     end
     def holdings
-        time = 8.hours.ago.to_date
+        time = 12.hours.ago.to_date
         portfolio = Portfolio.first
         @holdings = portfolio.get_holdings_and_prices_on(time)
         @total_value = portfolio.get_value_on(time)
