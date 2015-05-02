@@ -49,7 +49,7 @@ class DisplayController < ApplicationController
         @unbalanced_sectors = []
         @industry_weights.each do |sector, weight|
             if(@vals_by_sector[sector].nil?) then @vals_by_sector[sector] = 0 end
-            if((weight - @vals_by_sector[sector]/@total_value).abs > 5.0)
+            if((weight/100.0 - @vals_by_sector[sector]/@total_value).abs > 5.0)
                 @unbalanced_sectors << sector
             end
         end
@@ -62,7 +62,7 @@ class DisplayController < ApplicationController
             end
         end
         @beta = portfolio.beta(st, et)
-        @beta_constrained = ((@beta > 0.9) and (@beta < 1.1))
+        @beta_constrained = ((@beta > 0.8) and (@beta < 1.2))
         
     end
     def log
