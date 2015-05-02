@@ -49,7 +49,7 @@ class DisplayController < ApplicationController
         @unbalanced_sectors = []
         @industry_weights.each do |sector, weight|
             if(@vals_by_sector[sector].nil?) then @vals_by_sector[sector] = 0 end
-            if((weight/100.0 - @vals_by_sector[sector]/@total_value).abs > 5.0)
+            if((weight - @vals_by_sector[sector]*100/@total_value).abs > 5.0)
                 @unbalanced_sectors << sector
             end
         end
