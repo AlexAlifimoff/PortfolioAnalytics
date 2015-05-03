@@ -4,7 +4,7 @@ class DisplayController < ApplicationController
     def home
         @active_tab = "home"
         st = @@portfolio_start_date
-        et = (Date.today.wday == 6?) ? Date.today - 1 : (Date.today.wday == 0) ? Date.today - 2 : Date.today
+        et = (Date.today.wday == 6) ? Date.today - 1 : (Date.today.wday == 0) ? Date.today - 2 : Date.today
         portfolio = Portfolio.first
         @beta = portfolio.beta(st, et)
         daily_var = portfolio.variance(st, et)
@@ -18,7 +18,7 @@ class DisplayController < ApplicationController
     def risk
         portfolio = Portfolio.first
         st = @@portfolio_start_date
-        et = (Date.today.wday == 6?) ? Date.today - 1 : (Date.today.wday == 0) ? Date.today - 2 : Date.today
+        et = (Date.today.wday == 6) ? Date.today - 1 : (Date.today.wday == 0) ? Date.today - 2 : Date.today
         @active_tab = "risk"
         r_arr = portfolio.get_returns(st, et)
         @returns = r_arr[0]
@@ -27,7 +27,7 @@ class DisplayController < ApplicationController
     def compliance
         portfolio = Portfolio.first
         st = @@portfolio_start_date
-        et = (Date.today.wday == 6?) ? Date.today - 1 : (Date.today.wday == 0) ? Date.today - 2 : Date.today
+        et = (Date.today.wday == 6) ? Date.today - 1 : (Date.today.wday == 0) ? Date.today - 2 : Date.today
         @vals_by_sector = portfolio.get_industry_group_values(et)
         @total_value = 0
         @vals_by_sector.each do |sector, val|
@@ -71,7 +71,7 @@ class DisplayController < ApplicationController
         @trades = portfolio.trades
     end
     def holdings
-        time = (Date.today.wday == 6?) ? Date.today - 1 : (Date.today.wday == 0) ? Date.today - 2 : Date.today
+        time = (Date.today.wday == 6) ? Date.today - 1 : (Date.today.wday == 0) ? Date.today - 2 : Date.today
         portfolio = Portfolio.first
         @holdings = portfolio.get_holdings_and_prices_on(time)
         @total_value = portfolio.get_value_on(time)
