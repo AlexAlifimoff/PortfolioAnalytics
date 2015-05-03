@@ -34,7 +34,7 @@
       data.addRows([
         <% adjust = @prices[0][0] / @benchmark_prices[0] %>
         <% [@prices[1], @prices[0], @benchmark_prices].transpose.each do |date, port, benchmark| %>
-            [new Date(<%= date.year %>, <%= date.month %>, <%= date.day %>), <%= port %>, <%= adjust * benchmark %>],
+            [new Date(<%= date.year %>, <%= date.month - 1 %>, <%= date.day %>), <%= port %>, <%= adjust * benchmark %>],
         <% end %>
       ]);
 
