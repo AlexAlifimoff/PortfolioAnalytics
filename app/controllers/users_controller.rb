@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   def login
     unless session[:current_user_id].nil? then
       flash[:error] = "Please log out before attempting to log in."
-      redirect_to url_for(controller: :display, action: :main)
+      redirect_to url_for(controller: :display, action: :home)
     end
   end
 
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
     if user && user.password_valid?(params[:password]) then
       session[:current_user_id] = user.id
       session[:user_first_name] = user.first_name
-      redirect_to url_for(controller: :display, action: :portfolio)
+      redirect_to url_for(controller: :display, action: :home)
     else
       flash[:error] = "Username and/or password is incorrect."
       redirect_to login_users_path
