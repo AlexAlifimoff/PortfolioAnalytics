@@ -9,7 +9,12 @@ class DisplayController < ApplicationController
         @beta = portfolio.beta(st, et)
         daily_var = portfolio.variance(st, et)
         @var = daily_var * 255
-        @value_at_risk = (daily_var ** (0.5)) * 2 * portfolio.get_value_on(et)
+        begin
+            @value_at_risk = (daily_var ** (0.5)) * 2 * portfolio.get_value_on(et)
+        rescue
+            et = et - 3
+            @value_at_risk = (daily_var ** (0.5)) * 2 * portfolio.get_value_on(et)
+        end
         @prices = portfolio.get_prices(st, et)
         @returns = portfolio.get_returns(st, et)[0]
         @benchmark_prices = Stock.where("ticker = ?", portfolio.benchmark).first.get_prices(st, et)
