@@ -1,6 +1,7 @@
 require 'date'
 class DisplayController < ApplicationController
     @@portfolio_start_date = Date.parse('21-04-2015')
+    @@portfolio_end_date = Date.yesterday
     def home
         if not logged_in?
             render "users/login"
@@ -9,7 +10,7 @@ class DisplayController < ApplicationController
         
         @active_tab = "home"
         st = @@portfolio_start_date
-        et = (Date.today.wday == 6) ? Date.today - 1 : (Date.today.wday == 0) ? Date.today - 2 : Date.today
+        et = (@@portfolio_end_date.wday == 6) ? @@portfolio_end_date - 1 : (@@portfolio_end_date.wday == 0) ? @@portfolio_end_date - 2 : @@portfolio_end_date
         portfolio = Portfolio.first
         @beta = portfolio.beta(st, et)
         daily_var = portfolio.variance(st, et)
@@ -32,7 +33,8 @@ class DisplayController < ApplicationController
         end
         portfolio = Portfolio.first
         st = @@portfolio_start_date
-        et = (Date.today.wday == 6) ? Date.today - 1 : (Date.today.wday == 0) ? Date.today - 2 : Date.today
+        today = Date.yesterday
+        et = (@@portfolio_end_date.wday == 6) ? @@portfolio_end_date - 1 : (@@portfolio_end_date.wday == 0) ? @@portfolio_end_date - 2 : @@portfolio_end_date
         @active_tab = "risk"
         r_arr = portfolio.get_returns(st, et)
         @returns = r_arr[0]
@@ -45,7 +47,7 @@ class DisplayController < ApplicationController
         end
         portfolio = Portfolio.first
         st = @@portfolio_start_date
-        et = (Date.today.wday == 6) ? Date.today - 1 : (Date.today.wday == 0) ? Date.today - 2 : Date.today
+        et = (@@portfolio_end_date.wday == 6) ? @@portfolio_end_date - 1 : (@@portfolio_end_date.wday == 0) ? @@portfolio_end_date - 2 : @@portfolio_end_date
         @vals_by_sector = portfolio.get_industry_group_values(et)
         @total_value = 0
         @vals_by_sector.each do |sector, val|
@@ -97,7 +99,7 @@ class DisplayController < ApplicationController
             render "users/login"
             return
         end
-        time = (Date.today.wday == 6) ? Date.today - 1 : (Date.today.wday == 0) ? Date.today - 2 : Date.today
+        time = (@@portfolio_end_date.wday == 6) ? @@portfolio_end_date - 1 : (@@portfolio_end_date.wday == 0) ? @@portfolio_end_date - 2 : @@portfolio_end_date
         portfolio = Portfolio.first
         @holdings = portfolio.get_holdings_and_prices_on(time)
         @total_value = portfolio.get_value_on(time)
