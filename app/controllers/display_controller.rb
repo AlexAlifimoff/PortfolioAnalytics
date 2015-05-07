@@ -2,6 +2,11 @@ require 'date'
 class DisplayController < ApplicationController
     @@portfolio_start_date = Date.parse('21-04-2015')
     def home
+        if not logged_in?
+            render "users/login"
+            return
+        end
+        
         @active_tab = "home"
         st = @@portfolio_start_date
         et = (Date.today.wday == 6) ? Date.today - 1 : (Date.today.wday == 0) ? Date.today - 2 : Date.today
@@ -21,6 +26,10 @@ class DisplayController < ApplicationController
         @tracking_error = portfolio.tracking_error(st, et)
     end
     def risk
+        if not logged_in?
+            render "users/login"
+            return
+        end
         portfolio = Portfolio.first
         st = @@portfolio_start_date
         et = (Date.today.wday == 6) ? Date.today - 1 : (Date.today.wday == 0) ? Date.today - 2 : Date.today
@@ -30,6 +39,10 @@ class DisplayController < ApplicationController
         @dates = r_arr[1]
     end
     def compliance
+        if not logged_in?
+            render "users/login"
+            return
+        end
         portfolio = Portfolio.first
         st = @@portfolio_start_date
         et = (Date.today.wday == 6) ? Date.today - 1 : (Date.today.wday == 0) ? Date.today - 2 : Date.today
@@ -72,10 +85,18 @@ class DisplayController < ApplicationController
         
     end
     def log
+        if not logged_in?
+            render "users/login"
+            return
+        end
         portfolio = Portfolio.first
         @trades = portfolio.trades
     end
     def holdings
+        if not logged_in?
+            render "users/login"
+            return
+        end
         time = (Date.today.wday == 6) ? Date.today - 1 : (Date.today.wday == 0) ? Date.today - 2 : Date.today
         portfolio = Portfolio.first
         @holdings = portfolio.get_holdings_and_prices_on(time)
