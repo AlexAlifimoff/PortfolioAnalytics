@@ -5,4 +5,5 @@
 <%= form_tag({controller: :reports, action: :upload}, multipart: true) do %>
     <%= file_field_tag 'file' %>
     <%= hidden_field(:report, :id, :value => @report.id) %>
+    <%= submit_tag "Upload Report" %>
 <% end %>
