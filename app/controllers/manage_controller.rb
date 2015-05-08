@@ -13,6 +13,7 @@ class ManageController < ApplicationController
             render "users/login"
             return
         end
+        @trade = Trade.new
         @trades = Portfolio.first.trades
     end
     
