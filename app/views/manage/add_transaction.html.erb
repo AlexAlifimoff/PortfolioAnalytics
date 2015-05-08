@@ -1,0 +1,22 @@
+<%= form_for @trade do |f| %>
+    <div>
+        <%= f.label ("Ticker") %>
+        <%= f.text_field :asset_ticker %>
+    </div>
+    <div>
+        <%= f.label ("Execution Date") %>
+        <%= f.datetime_field :execution_date %>
+    </div>
+    <div>
+        <%= f.label ("Price") %>
+        <%= f.number_field :price %>
+    </div>
+    <div>
+        <%= f.label ("Quantity") %>
+        <%= f.number_field :quantity %>
+    </div>
+    <div>
+        <%= f.label ("Fees") %>
+        <%= f.number_field :fees %>
+    </div>
+<% end %>
