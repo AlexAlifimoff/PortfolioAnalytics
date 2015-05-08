@@ -62,7 +62,7 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :trades, only: [:add_transaction, :create]
+  resources :manage, only: [:add_transaction, :create]
 
   #resources :display, only: [] do
   #  collection do
