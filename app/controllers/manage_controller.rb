@@ -1,10 +1,11 @@
 class ManageController < ApplicationController
     def add_transaction
         @trade = Trade.new
+        @igs = ["Energy", "Materials", "Consumer Discretionary", "Consumer Staples", "Health Care", "Financials", "Information Technology", "Telecommunication Services", "Utilities"]
     end
     
     def create
-        @igs = ["Energy", "Materials", "Consumer Discretionary", "Consumer Staples", "Health Care", "Financials", "Information Technology", "Telecommunication Services", "Utilities"]
+        
         @trade = Trade.new(trade_params(params[:trade]))
         if @trade.save then
             Portfolio.first.trades << @trade
