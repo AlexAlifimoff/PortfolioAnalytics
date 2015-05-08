@@ -70,7 +70,7 @@ Rails.application.routes.draw do
     get 'delete', :on => :member
   end
   
-  resources :manage, only: [:add_transaction, :create, :delete_transaction]
+  resources :manage, only: [:add_transaction, :create, :delete_transaction, :remove]
   
 
   #resources :display, only: [] do
