@@ -10,7 +10,7 @@ class ReportsController < ApplicationController
             file.write(uploaded_io.read)
         end
         @df = DataFile.new
-        @df.filename = Rails.root.join('public', 'uploads', uploaded_io.original_filename)
+        @df.filename = Rails.root.join('reports', uploaded_io.original_filename)
         if @df.save
             @report.datafiles << @df
             @report.save
