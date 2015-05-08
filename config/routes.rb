@@ -54,6 +54,10 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
   #Rails.application.routes.draw do
+  
+  map.connect '/trades/create', :controller => 'manage', :action => 'create'
+  map.connect '/trades/add_transaction', :controller => 'manage', :action => 'add_transaction'
+  
   resources :users, only: [:new, :create, :index] do
     collection do
       get :login
@@ -63,6 +67,7 @@ Rails.application.routes.draw do
   end
   
   resources :manage, only: [:add_transaction, :create]
+  
 
   #resources :display, only: [] do
   #  collection do
