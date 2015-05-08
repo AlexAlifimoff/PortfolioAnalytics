@@ -19,7 +19,7 @@ class ManageController < ApplicationController
     def remove
         @trade = Trade.find(params[:trade][:trade_id])
         @trade.delete
-        render "display/log"
+        redirect_to "/display/log"
     end
     
     def create
