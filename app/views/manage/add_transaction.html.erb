@@ -9,15 +9,15 @@
     </div>
     <div>
         <%= f.label ("Price") %>
-        <%= f.number_field :price %>
+        <%= f.number_field :price, :step => 0.01 %>
     </div>
     <div>
         <%= f.label ("Quantity") %>
-        <%= f.number_field :quantity %>
+        <%= f.number_field :quantity, :step => 0.01 %>
     </div>
     <div>
         <%= f.label ("Fees") %>
-        <%= f.number_field :fees %>
+        <%= f.number_field :fees, :step => 0.01 %>
     </div>
     <br />
     <%= f.submit "Add Transaction" %>
