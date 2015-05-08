@@ -4,6 +4,10 @@ class ManageController < ApplicationController
         @igs = ["Energy", "Materials", "Consumer Discretionary", "Consumer Staples", "Health Care", "Financials", "Information Technology", "Telecommunication Services", "Utilities"]
     end
     
+    def delete_transaction
+        @trades = Portfolio.first.trades
+    end
+    
     def create
         
         @trade = Trade.new(trade_params(params[:trade]))
