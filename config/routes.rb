@@ -66,7 +66,9 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :trades
+  resources :trades do 
+    get 'delete', :on => :member
+  end
   
   resources :manage, only: [:add_transaction, :create, :delete_transaction]
   
