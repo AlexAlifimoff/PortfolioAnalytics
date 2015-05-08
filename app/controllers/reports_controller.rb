@@ -1,4 +1,8 @@
 class ReportsController < ApplicationController
+    def view
+        @report = Report.find_by_id(params[:id])
+    end
+    
     def upload
     
     end
