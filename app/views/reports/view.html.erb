@@ -1,3 +1,8 @@
-Report on:  <%= @report.stock.ticker %>
-Target Price: <%= @report.target_price %>
-Presentation Date: <%= @report.presentation_date %>
+<p> Report on:  <%= @report.stock.ticker %> </p>
+<p> Target Price: <%= @report.target_price %> </p>
+<p> Presentation Date: <%= @report.presentation_date %> </p>
+
+<%= form_tag({controller: :reports, action: :upload}, multipart: true) do %>
+    <%= file_field_tag 'file' %>
+    <%= hidden_field(:report, :id, :value => @report.id) %>
+<% end %>
