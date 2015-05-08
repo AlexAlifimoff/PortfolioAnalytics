@@ -16,6 +16,12 @@ class ManageController < ApplicationController
         @trades = Portfolio.first.trades
     end
     
+    def remove
+        @trade = Trade.find(params[:trade][:trade_id])
+        @trade.delete
+        render "display/log"
+    end
+    
     def create
         if not logged_in?
             render "users/login"

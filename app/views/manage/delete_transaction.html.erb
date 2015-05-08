@@ -1,7 +1,8 @@
 <% @trades.each do |trade| %>
     <div>
         <%= trade.asset_ticker %> on <%= trade.execution_date %>
-        <%= form_for(trade, :html => { :method => :delete }) do |f| %>
+        <%= form_for(trade, :url => 'manage/remove') do |f| %>
+        <%= f.hidden_field :trade_id, :value => trade.id%>
         <%= f.submit :value => "Delete" %>
         <% end %>
     </div>
