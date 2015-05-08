@@ -6,9 +6,10 @@ class ManageController < ApplicationController
     def create
         @trade = Trade.new(trade_params(params[:trade]))
         if @trade.save then
-            redirect_to 'display/log'
+            Portfolio.first.trades << @trade
+            redirect_to '/display/log'
         else
-            render 'manage/add_transaction'
+            render '/manage/add_transaction'
         end
     end
     
