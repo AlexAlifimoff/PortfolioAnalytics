@@ -5,7 +5,7 @@
     </div>
     <div>
         <%= f.label ("Execution Date") %>
-        <%= f.datetime_field :execution_date %>
+        <%= f.datetime_select :execution_date %>
     </div>
     <div>
         <%= f.label ("Price") %>
@@ -19,4 +19,6 @@
         <%= f.label ("Fees") %>
         <%= f.number_field :fees %>
     </div>
+    <br />
+    <%= f.submit "Add Transaction" %>
 <% end %>
