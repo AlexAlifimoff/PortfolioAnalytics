@@ -55,8 +55,8 @@ Rails.application.routes.draw do
   #   end
   #Rails.application.routes.draw do
   
-  map.connect '/trades/create', :controller => 'manage', :action => 'create'
-  map.connect '/trades/add_transaction', :controller => 'manage', :action => 'add_transaction'
+  #map.connect '/trades/create', :controller => 'manage', :action => 'create'
+  #map.connect '/trades/add_transaction', :controller => 'manage', :action => 'add_transaction'
   
   resources :users, only: [:new, :create, :index] do
     collection do
