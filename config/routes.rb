@@ -66,7 +66,7 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :manage, only: [:add_transaction, :create]
+  resources :manage, only: [:add_transaction, :create, :delete_transaction]
   
 
   #resources :display, only: [] do
