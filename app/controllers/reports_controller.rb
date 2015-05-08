@@ -20,7 +20,7 @@ class ReportsController < ApplicationController
         end
     end
     private
-    def report_params
-        return params.permit(:presentation_date, :target_price)
+    def report_params(params)
+        return params.permit(:presentation_date, :target_price, :stock_id)
     end
 end
