@@ -18,6 +18,10 @@ class ManageController < ApplicationController
     end
     
     def remove
+        if not logged_in?
+            render "users/login"
+            return
+        end
         @trade = Trade.find(params[:trade][:trade_id])
         @trade.delete
         redirect_to "/display/log"

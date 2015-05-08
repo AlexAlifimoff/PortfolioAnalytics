@@ -2,6 +2,7 @@ require 'quandl/client'
 
 class Stock < ActiveRecord::Base
     has_many    :stock_data
+    has_many    :reports
     
     def get_close_price_on(date)
         if !date.kind_of? Date

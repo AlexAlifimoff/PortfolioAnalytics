@@ -1,0 +1,17 @@
+<%= form_for @report, url: '/manage/create' do |f| %>
+    <div>
+        <%= f.label("Presentation Date:") %>
+        <%= f.datetime_select :presentation_date %>
+    </div>
+    <div>
+        <%= f.label ("Target Price (most recent):") %>
+        <%= f.number_field :target_price, :step => .01 %>
+    </div>
+    <div>
+        <%= f.label ("Relevant Holding") %>
+        <%= f.text_field :stock_ticker %>
+    </div>
+    <div>
+        <%= f.submit "Create New Report" %>
+    </div>
+<% end %>
