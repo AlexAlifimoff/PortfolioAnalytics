@@ -19,6 +19,10 @@
         <%= f.label ("Fees") %>
         <%= f.number_field :fees, :step => 0.01 %>
     </div>
+    <div>
+        <%= f.label ("Industry Group") %>
+        <%= f.select(:industry_group, @igs.map {|g| [g, g]}) %>
+    </div>
     <br />
     <%= f.submit "Add Transaction" %>
 <% end %>
