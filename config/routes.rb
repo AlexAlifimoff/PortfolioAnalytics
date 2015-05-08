@@ -61,6 +61,8 @@ Rails.application.routes.draw do
       get :logout
     end
   end
+  
+  resources :trades, only: [:add_transaction, :create]
 
   #resources :display, only: [] do
   #  collection do
