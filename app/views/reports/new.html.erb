@@ -1,7 +1,7 @@
 <%= form_for @report, url: '/manage/create' do |f| %>
     <div>
         <%= f.label("Presentation Date:") %>
-        <%= f.datetime_select :presentation_date %>
+        <%= f.date_select :presentation_date %>
     </div>
     <div>
         <%= f.label ("Target Price (most recent):") %>
