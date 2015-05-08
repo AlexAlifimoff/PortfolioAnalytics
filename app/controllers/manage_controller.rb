@@ -1,15 +1,26 @@
 class ManageController < ApplicationController
     def add_transaction
+        if not logged_in?
+            render "users/login"
+            return
+        end
         @trade = Trade.new
         @igs = ["Energy", "Materials", "Consumer Discretionary", "Consumer Staples", "Health Care", "Financials", "Information Technology", "Telecommunication Services", "Utilities"]
     end
     
     def delete_transaction
+        if not logged_in?
+            render "users/login"
+            return
+        end
         @trades = Portfolio.first.trades
     end
     
     def create
-        
+        if not logged_in?
+            render "users/login"
+            return
+        end
         @trade = Trade.new(trade_params(params[:trade]))
         if @trade.save then
             Portfolio.first.trades << @trade
