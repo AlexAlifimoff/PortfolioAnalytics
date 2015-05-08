@@ -6,7 +6,7 @@ class ReportsController < ApplicationController
     def upload
         @report = Report.find_by_id(params[:report][:id])
         uploaded_io = params[:file]
-        File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+        File.open(Rails.root.join('reports', uploaded_io.original_filename), 'wb') do |file|
             file.write(uploaded_io.read)
         end
         @df = DataFile.new
