@@ -9,7 +9,7 @@
     </div>
     <div>
         <%= f.label ("Relevant Holding") %>
-        <%= f.text_field :stock_ticker %>
+        <%= f.collection_select :stock_id, Stock.all, :id, :asset_ticker %>
     </div>
     <div>
         <%= f.submit "Create New Report" %>
