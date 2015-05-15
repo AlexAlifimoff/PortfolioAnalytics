@@ -55,16 +55,16 @@ class DisplayController < ApplicationController
         end
         @igs = ["Energy", "Materials", "Consumer Discretionary", "Consumer Staples", "Health Care", "Financials", "Information Technology", "Telecommunication Services", "Utilities"]
         @industry_weights = {
-            "Energy" => 3.91,
-            "Materials" => 4.39,
-            "Consumer Discretionary" => 13.78,
+            "Energy" => 3.64,
+            "Materials" => 4.38,
+            "Consumer Discretionary" => 13.67,
             "Consumer Staples" => 3.09,
-            "Health Care" => 15.30,
-            "Financials" => 23.77,
-            "Information Technology" => 17.95,
-            "Telecommunication Services" => 0.77,
-            "Utilities" => 3.54,
-            "Industrials" => 13.49
+            "Health Care" => 15.67,
+            "Financials" => 23.53,
+            "Information Technology" => 18.17,
+            "Telecommunication Services" => 0.74,
+            "Utilities" => 3.41,
+            "Industrials" => 13.50
                             }
         @threshold = 5.0
         @unbalanced_sectors = []
